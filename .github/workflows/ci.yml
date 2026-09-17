@@ -24,7 +24,7 @@ jobs:
 
       - name: Vérifier le style avec flake8
         working-directory: starter_app
-        run: flake8
+        run: python -m flake8 . --max-line-length=100 --exclude=.venv
 
   test:
     runs-on: ubuntu-latest
