@@ -41,10 +41,27 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Mettre en cache les dépendances pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-py${{ matrix.python-version }}-pip-${{ hashFiles('starter_app/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-py${{ matrix.python-version }}-pip-
+
       - name: Installer les dépendances
         working-directory: starter_app
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          pip install pytest-cov
 
-      - name: Lancer les tests
+      - name: Lancer les tests avec couverture
         working-directory: starter_app
-        run: pytest
+        run: pytest --cov=. --cov-report=html
+
+      - name: Publier le rapport de couverture
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report-py${{ matrix.python-version }}
+          path: starter_app/htmlcov
