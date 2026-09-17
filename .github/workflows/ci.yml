@@ -7,9 +7,28 @@ on:
   pull_request:
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Installer les dépendances
+        working-directory: starter_app
+        run: pip install -r requirements.txt
+
+      - name: Vérifier le style avec flake8
+        working-directory: starter_app
+        run: flake8
+
   test:
     runs-on: ubuntu-latest
-
+    needs: lint
     steps:
       - name: Récupérer le code
         uses: actions/checkout@v4
