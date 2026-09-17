@@ -1,0 +1,9 @@
+```
+starter-app/
+├── app.py # deux fonctions (alert_threshold, sanitize_input) 
++ deux endpoints (/health, /status)
+├── test_app.py # 3 tests déjà écrits : alert_threshold, 
+sanitize_input, /health
+├── requirements.txt # flask, pytest, pytest-cov, flake8
+└── .flake8 # config lint (max-line-length = 100)
+```
