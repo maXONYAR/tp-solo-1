@@ -24,6 +24,11 @@ def health():
 def status():
     return jsonify(service="projet-devops-groupe-demo", version="1.0"), 200
 
+@app.route('/')
+def home():
+    return jsonify(message="Bienvenue dans mon app Flask Dockerisée 🚀"), 200
+
+
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000)
