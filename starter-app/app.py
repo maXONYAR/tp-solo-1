@@ -28,6 +28,13 @@ def status():
 def home():
     return jsonify(message="Bienvenue dans mon app Flask Dockerisée 🚀"), 200
 
+@app.route("/visits")
+def visits():
+    r = get_redis_client()
+    count = r.incr("visits")
+    return jsonify(visits=count), 200
+
+
 
 
 if __name__ == "__main__":
